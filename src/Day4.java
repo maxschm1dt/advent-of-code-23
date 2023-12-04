@@ -14,7 +14,6 @@ public class Day4 {
         star2();
     }
 
-
     public void star1(){
 
         try {
