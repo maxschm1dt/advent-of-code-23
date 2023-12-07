@@ -9,13 +9,10 @@ public class Day7 {
     public static void main(String[] args) {
         new Day7();
     }
-
-
     Day7(){
         star1();
         star2();
     }
-
 
     void star1(){
         var hands = new ArrayList<Hand>();
@@ -29,7 +26,6 @@ public class Day7 {
             }
 
             hands.sort(Hand::compare);
-            //System.out.println(hands.toString());
 
             var counter = 1;
             long res = 0;
@@ -61,7 +57,6 @@ public class Day7 {
             }
 
             hands.sort(JokerHand::compare);
-            //System.out.println(hands.toString());
 
             var counter = 1;
             long res = 0;
@@ -107,7 +102,7 @@ class Hand{
             }
         }
 
-        //System.out.println(Arrays.toString(numberOfEachCard));
+
         int max = 0;
         var  opMax = Arrays.stream(numberOfEachCard).max();
 
@@ -116,33 +111,26 @@ class Hand{
         }
 
         if(max == 5){
-            //System.out.println("its a five of a kind");
             return 6;
         }
         if(max == 4){
-            //System.out.println("its a four of a kind");
             return 5;
         }
 
         var sorted = Arrays.stream(numberOfEachCard).sorted().toArray();
-        //System.out.println(Arrays.toString(sorted));
         if(sorted[sorted.length-1] == 3 && sorted[sorted.length-2] == 2){
-            //System.out.println("its a full house");
             return 4;
         }
 
         if(max == 3){
-            //System.out.println("its a three of a kind");
             return 3;
         }
 
         if(sorted[sorted.length-1] == 2 && sorted[sorted.length-2] == 2){
-            //System.out.println("its a two pair");
             return 2;
         }
 
         if(max == 2){
-            //System.out.println("its a pair");
             return 1;
         }
 
@@ -160,21 +148,17 @@ class Hand{
 
     public int compare(Hand hand){
         if(this.strongnessType > hand.strongnessType){
-            //System.out.println(this + "is bigger " + hand);
             return 1;
         }
         if(this.strongnessType < hand.strongnessType){
-            //System.out.println(this + "is smaller " + hand);
             return -1;
         }
         //vergleiche die ersten elemente
         for (int i = 0; i < cards.length; i++) {
             if(getIntFromCard(this.cards[i]) < getIntFromCard(hand.cards[i])){
-                //System.out.println(this + "is bigger " + hand);
                 return 1;
             }
             if(getIntFromCard(this.cards[i]) > getIntFromCard(hand.cards[i])){
-                //System.out.println(this + "is smaller " + hand);
                 return -1;
             }
         }
@@ -214,7 +198,6 @@ class JokerHand{
         var nJokers = numberOfEachCard[numberOfEachCard.length-1];
         numberOfEachCard[numberOfEachCard.length-1] = 0;
 
-        //System.out.println(Arrays.toString(numberOfEachCard));
         int max = 0;
         var  opMax = Arrays.stream(numberOfEachCard).max();
 
@@ -223,39 +206,31 @@ class JokerHand{
         }
 
         if(max + nJokers >= 5){
-            //System.out.println("its a five of a kind");
             return 6;
         }
         if(max + nJokers == 4){
-            //System.out.println("its a four of a kind");
             return 5;
         }
 
         var sorted = Arrays.stream(numberOfEachCard).sorted().toArray();
-        //System.out.println(Arrays.toString(sorted));
         if(sorted[sorted.length-1] == 3 && sorted[sorted.length-2] == 2){
-            //System.out.println("its a full house");
             return 4;
         }
 
         if(sorted[sorted.length-1] == 2 && sorted[sorted.length-2] == 2 && nJokers >= 1){
-            //System.out.println("its a full house");
             return 4;
         }
 
 
         if(max + nJokers == 3){
-            //System.out.println("its a three of a kind");
             return 3;
         }
 
         if(sorted[sorted.length-1] == 2 && sorted[sorted.length-2] == 2){
-            //System.out.println("its a two pair");
             return 2;
         }
 
         if(max + nJokers == 2){
-            //System.out.println("its a pair");
             return 1;
         }
 
@@ -273,21 +248,17 @@ class JokerHand{
 
     public int compare(JokerHand hand){
         if(this.strongnessType > hand.strongnessType){
-            //System.out.println(this + "is bigger " + hand);
             return 1;
         }
         if(this.strongnessType < hand.strongnessType){
-            //System.out.println(this + "is smaller " + hand);
             return -1;
         }
-        //vergleiche die ersten elemente
+
         for (int i = 0; i < cards.length; i++) {
             if(getIntFromCard(this.cards[i]) < getIntFromCard(hand.cards[i])){
-                //System.out.println(this + "is bigger " + hand);
                 return 1;
             }
             if(getIntFromCard(this.cards[i]) > getIntFromCard(hand.cards[i])){
-                //System.out.println(this + "is smaller " + hand);
                 return -1;
             }
         }
