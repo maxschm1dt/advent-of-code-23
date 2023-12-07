@@ -36,16 +36,12 @@ public class Day7 {
 
             System.out.println("star1: " +  res);
 
-
-
         }catch(IOException e){
             throw  new RuntimeException(e);
         }
     }
 
     void star2(){
-        var jHnd = new JokerHand("KTJJT", 0);
-
         var hands = new ArrayList<JokerHand>();
         try{
             BufferedReader br = new BufferedReader(new FileReader("src/txt/day7.txt"));
@@ -66,8 +62,6 @@ public class Day7 {
             }
 
             System.out.println("star2: "  + res);
-
-
 
         }catch(IOException e){
             throw  new RuntimeException(e);
@@ -95,13 +89,8 @@ class Hand{
 
     private int computeStrongnessType(){
         for (var card : cards) {
-            for (int i = 0; i < cardValues.length; i++){
-                if(Objects.equals(card, cardValues[i])){
-                    numberOfEachCard[i] ++;
-                }
-            }
+            numberOfEachCard[getIntFromCard(card)]++;
         }
-
 
         int max = 0;
         var  opMax = Arrays.stream(numberOfEachCard).max();
@@ -153,7 +142,6 @@ class Hand{
         if(this.strongnessType < hand.strongnessType){
             return -1;
         }
-        //vergleiche die ersten elemente
         for (int i = 0; i < cards.length; i++) {
             if(getIntFromCard(this.cards[i]) < getIntFromCard(hand.cards[i])){
                 return 1;
@@ -188,11 +176,7 @@ class JokerHand{
 
     private int computeStrongnessType(){
         for (var card : cards) {
-            for (int i = 0; i < cardValues.length; i++){
-                if(Objects.equals(card, cardValues[i])){
-                    numberOfEachCard[i] ++;
-                }
-            }
+            numberOfEachCard[getIntFromCard(card)] += 1;
         }
 
         var nJokers = numberOfEachCard[numberOfEachCard.length-1];
@@ -202,13 +186,14 @@ class JokerHand{
         var  opMax = Arrays.stream(numberOfEachCard).max();
 
         if(opMax.isPresent()){
-            max = opMax.getAsInt();
+            max = opMax.getAsInt() + nJokers;
         }
 
-        if(max + nJokers >= 5){
+        if(max >= 5){
             return 6;
         }
-        if(max + nJokers == 4){
+
+        if(max == 4){
             return 5;
         }
 
@@ -222,7 +207,7 @@ class JokerHand{
         }
 
 
-        if(max + nJokers == 3){
+        if(max == 3){
             return 3;
         }
 
@@ -230,7 +215,7 @@ class JokerHand{
             return 2;
         }
 
-        if(max + nJokers == 2){
+        if(max == 2){
             return 1;
         }
 
