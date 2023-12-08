@@ -92,6 +92,7 @@ class Hand{
             numberOfEachCard[getIntFromCard(card)]++;
         }
 
+
         int max = 0;
         var  opMax = Arrays.stream(numberOfEachCard).max();
 
