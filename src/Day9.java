@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Day9 {
     public static void main(String[] args) {
@@ -57,6 +56,10 @@ public class Day9 {
                 frontExtrapolatesValues.add(first);
 
             }
+            for (var sum :
+                    backExtrapolatesValues) {
+                System.out.println(sum);
+            }
 
             System.out.println("star1: " + backExtrapolatesValues.stream().reduce(0, Integer::sum));
             System.out.println("star2: " + frontExtrapolatesValues.stream().reduce(0, Integer::sum));
@@ -75,8 +78,8 @@ public class Day9 {
 
     public boolean isZeroList(int[] list){
         boolean isZeroList = true;
-        for (int i = 0; i < list.length; i++)
-            if (list[i] != 0) {
+        for (int j : list)
+            if (j != 0) {
                 isZeroList = false;
                 break;
             }
